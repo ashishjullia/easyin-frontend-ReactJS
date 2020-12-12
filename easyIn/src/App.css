@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -26,6 +27,82 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.image {
+  border: 30px solid teal;
+}
+
+#signInStart {
+  text-align: center;
+  align-content: center;
+  display: inline-block;
+  padding-top: 60px;
+  box-shadow: 5px 10px;
+  margin-top: 50px;
+  width: 600px;
+  height: 250px;
+  border:2px solid black;
+}
+
+#signUpStart {
+  text-align: center;
+  align-content: center;
+  display: inline-block;
+  padding-top: 40px;
+  box-shadow: 5px 10px;
+  margin-top: 50px;
+  width: 600px;
+  height: 300px;
+  border:2px solid black;
+}
+
+label {
+  display: inline-block;
+  float: center;
+  margin-left: 100px;
+  width: 150px;
+  text-align: right;
+}
+
+.textfield {
+  width: 180px;
+  text-align: center;
+  float: center;
+  margin-left: 50px;
+  margin-right: 100px;
+}
+
+#container {
+  margin-top: 20px;
+  width: 100%;
+  align-content: center;
+  text-align: center;
+}
+
+.inner {
+  align-content: center;
+  display: inline-block;
+  background-color: white;
+  color: black;
+  text-decoration: none;
+  border: 2px solid #555555;
+  text-align: center;
+  padding: 15px 32px;
+  margin: 10px;
+  transition-duration: 0.4s;
+}
+
+.inner:hover {
+  background-color: #555555;
+  color: white;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
 }
 
 @keyframes App-logo-spin {
