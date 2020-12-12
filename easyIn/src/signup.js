@@ -62,7 +62,7 @@ export default class signup extends React.Component {
                 <br></br><br></br>
                 <input id="submit" className="inner" type="button" value="Submit" onClick={this.handleEventSubmitClicked}></input>
                 <div>
-                    <h1>{this.state.message}</h1>
+                    <h6>{this.state.message}</h6>
                 </div>
                 </div>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
