@@ -3,12 +3,11 @@ import axios from "axios";
 import './App.css';
 
 export default class signup extends React.Component {
-
+    // Inheriting and creating states
     result = {
         message: "",
         status: ""
     }
-
     constructor(props) {
         super(props);
         this.state = {
@@ -24,8 +23,6 @@ export default class signup extends React.Component {
         this.handleEmail = this.handleEmail.bind(this);
         this.handlePassword = this.handlePassword.bind(this);
     }
-
-
 
     handleFirstName() {
         this.setState({ firstname: document.getElementById("firstName").value });
@@ -43,14 +40,13 @@ export default class signup extends React.Component {
         this.setState({ password: document.getElementById("password").value });
     }
 
+    // SignUp submit request handler
     handleEventSubmitClicked() {
         const response = axios.post('http://oneeasyin.com:8080/users/signup', this.state).then((res) => {
-          //  this.setState({ resultAPI: res.data })
             this.result.message = res.data.message;
             this.result.status = res.data.status;
             console.log(this.result.message);
             console.log(this.result.status);
-
         }
         ).catch((error) => {
             console.log(error)
@@ -73,7 +69,7 @@ export default class signup extends React.Component {
                 <br></br><br></br>
                 <input id="submit" className="inner" type="button" value="Submit" onClick={this.handleEventSubmitClicked}></input>
                 <div>
-                    <h1>{this.state.resultAPI}</h1>
+                    <h1>{this.state.message}</h1>
                 </div>
                 </div>
                 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

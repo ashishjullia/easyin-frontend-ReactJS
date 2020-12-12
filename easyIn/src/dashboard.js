@@ -1,14 +1,11 @@
 import React from 'react';
 import axios from "axios";
-import ReactDOM from 'react-dom';
 import './App.css';
-import App from './App';
 import {Route, Link, BrowserRouter as Router, Redirect} from 'react-router-dom';
-import signup from './signup';
-import signin from './signin';
 import QRCode from "qrcode.react";
 
 export default class dashboard extends React.Component {
+    // Inheriting and creating states
     constructor(props) {
         super(props);
         this.state = {
@@ -32,6 +29,7 @@ export default class dashboard extends React.Component {
         this.handleEventSubmitRemoveExistingFingerprintClicked = this.handleEventSubmitRemoveExistingFingerprintClicked.bind(this);
     }
 
+    // Function to check the session status from API, ensures whether a user is logged in or not
     checkForSession() {
         axios.defaults.withCredentials = true
         axios.get('http://oneeasyin.com:8080/users/sessioncheck')
@@ -48,26 +46,24 @@ export default class dashboard extends React.Component {
             });
     }
 
+    // Access the dashboard based on the current logged in user
     dashboardHome() {
-            axios.defaults.withCredentials = true
-            axios.post('http://oneeasyin.com:8080/dashboard')
-                .then((res) => {
-                    this.setState({ message: res.data.message });
+        axios.defaults.withCredentials = true
+        axios.post('http://oneeasyin.com:8080/dashboard')
+            .then((res) => {
+                this.setState({ message: res.data.message });
                 console.log(res.data.status);
-                        // this.checkForSession();
-                // this.setState({ redirect: true });
-            }
-            ).catch((error) => {
-                console.log(error)
-            });
+        }
+        ).catch((error) => {
+            console.log(error)
+        });
     }
 
+    // Logout request handler
     handleEventSubmitLogOutClicked() {
         axios.defaults.withCredentials = true
         axios.post('http://oneeasyin.com:8080/users/logout')
             .then((res) => {
-            // console.log(res.data.email);
-
                 console.log("message", res.data.message);
                 console.log("session", this.state.redirect);
                     window.location.reload();
@@ -77,21 +73,17 @@ export default class dashboard extends React.Component {
         });
     }
 
+    // Fingerprint request handler
     handleEventSubmitGenerateFingerPrintClicked() {
         axios.defaults.withCredentials = true
         axios.post('http://oneeasyin.com:8080/dashboard/addfingerprint')
             .then((res) => {
                     if (res.data.status) {
-                        // console.log("fingerprint",res.data.message);
                         this.setState({
                             qrPresentOrNot: true,
                             qrData: res.data.email,
                             qrFingerprintResponse: res.data.message
                         });
-                        // console.log(res.data);
-                        // console.log(this.state.qrData);
-                        // console.log(this.state.qrPresentOrNot);
-                        // console.log(this.state.qrFingerprintResponse);
                     } else {
                         console.log("fingerprint", res.data.message);
                         this.setState({ qrFingerprintResponse: res.data.message });
@@ -101,36 +93,38 @@ export default class dashboard extends React.Component {
             console.log(error)
         });}
 
-        handleEventSubmitRemoveExistingFingerprintClicked() {
-            axios.defaults.withCredentials = true
-            axios.post('http://oneeasyin.com:8080/dashboard/removefingerprint')
-                .then((res) => {
-                        // console.log("removed",res.data);
-                        if (res.data.status) {
-                            this.setState({
-                                fingerprintRemovedOrNot: true,
-                                fingerprintRemovedOrNotResponse: res.data.message });
-                            window.location.reload();
-                        } else {
-                            this.setState({
-                            fingerprintRemovedOrNot: false,
+    // Remove Fingerprint request handler
+    handleEventSubmitRemoveExistingFingerprintClicked() {
+        axios.defaults.withCredentials = true
+        axios.post('http://oneeasyin.com:8080/dashboard/removefingerprint')
+            .then((res) => {
+                    // console.log("removed",res.data);
+                    if (res.data.status) {
+                        this.setState({
+                            fingerprintRemovedOrNot: true,
                             fingerprintRemovedOrNotResponse: res.data.message });
-                            // window.location.reload();
-                        }
-                    console.log(res.data);
-                    console.log(this.state.fingerprintRemovedOrNotResponse);
-                    console.log(this.state.fingerprintRemovedOrNot);
+                        window.location.reload();
+                    } else {
+                        this.setState({
+                        fingerprintRemovedOrNot: false,
+                        fingerprintRemovedOrNotResponse: res.data.message });
+                        // window.location.reload();
                     }
-                ).catch((error) => {
-                console.log(error)
-            });
-        }
+                console.log(res.data);
+                console.log(this.state.fingerprintRemovedOrNotResponse);
+                console.log(this.state.fingerprintRemovedOrNot);
+                }
+            ).catch((error) => {
+            console.log(error)
+        });
+    }
 
-        componentDidMount()
-        {
-            this.dashboardHome();
-            this.checkForSession();
-        }
+    // Mount these or execute these each time page render/refresh
+    componentDidMount()
+    {
+        this.dashboardHome();
+        this.checkForSession();
+    }
 
     render() {
         return (

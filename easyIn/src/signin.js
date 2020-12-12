@@ -1,11 +1,9 @@
 import React from 'react';
 import axios from "axios";
-import ReactDOM from 'react-dom';
 import {Route, Link, BrowserRouter as Router, Redirect} from 'react-router-dom';
 import './App.css';
-import dashboard from './dashboard';
-
 export default class signin extends React.Component {
+    // Inheriting and creating states
     constructor(props) {
         super(props);
         this.state = {
@@ -37,6 +35,7 @@ export default class signin extends React.Component {
         this.setState({ password: document.getElementById("password").value });
     }
 
+    // Function to check the session status from API, ensures whether a user is logged in or not
     checkForSession() {
         axios.defaults.withCredentials = true
         axios.get('http://oneeasyin.com:8080/users/sessioncheck')
@@ -52,10 +51,12 @@ export default class signin extends React.Component {
             });
     }
 
+    // Mount these or execute these each time page render/refresh
     componentDidMount() {
         this.checkForSession();
     }
 
+    // Password request handler
     handleEventSubmitPasswordClicked() {
         axios.defaults.withCredentials = true
         axios.post('http://oneeasyin.com:8080/users/login', {
@@ -79,9 +80,9 @@ export default class signin extends React.Component {
         });
     }
 
+    // Password Less request handler
     handleEventSubmitPasswordLessClicked = () =>{
         this.setState({loading : true});
-
         // API call here
         axios.defaults.withCredentials = true
         axios.post('http://oneeasyin.com:8080/users/login/passwordless', {email:this.state.email}).then((res) => {
@@ -103,9 +104,6 @@ export default class signin extends React.Component {
             this.setState({loading : false});
         }, 10000)
     }
-
-// <input id="submitBiometric" type="button" value="Log In with Fingerprint" onClick={this.handleEventSubmitPasswordLessClicked}></input>
-
 
     render() {
         const {loading} = this.state;
