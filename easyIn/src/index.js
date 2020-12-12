@@ -1,75 +1,21 @@
 import React from 'react';
-//import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import {Route,Link,BrowserRouter as Router} from 'react-router-dom'
+import signup from './signup';
+import signin from './signin';
+import dashboard from './dashboard';
 
-export default function App() {
-  const[firstname, setfirstname] = React.useState("");
-  const[lastname, setlastname] = React.useState("");
-  const[email, setEmail] = React.useState("");
-  const[password, setPassword] = React.useState("");
+const routing = (
+  <Router>
+    <div>
+      <Route exact path="/" component={App} />
+      <Route path="/signup" component={signup} />
+      <Route path="/signin" component={signin} />
+      <Route path="/dashboard" component={dashboard} />
+    </div>
+  </Router>
+)
 
-
-  const handleSubmit = (event) => {
-    console.log(`
-    FirstName: ${firstname}
-    LastName: ${lastname}
-    Email: ${email}
-    Password: ${password}
-    `);
-
-    event.preventDefault();
-  }
-
-return (
-  <form onSubmit={handleSubmit}>
-    <h1>Register your account</h1>
-
-    <label>
-    FirstName
-    <input
-      name="firstName"
-      type="textbox"
-      value={Text}
-      required />
-  </label>
-
-  <label>
-    LastName
-    <input
-      name="lastName"
-      type="textbox"
-      value={Text}
-      required />
-  </label>
-
-  <label>
-    Email:
-    <input
-      name="email"
-      type="email"
-      value={email}
-      required />
-  </label>
-
-  <label>
-    Password:  <input
-      name="password"
-      type="password"
-      value={password}
-      required />
-  </label>
-
-  <label>
-    Email:
-    <input
-      name="email"
-      type="email"
-      value={email}
-      required />
-  </label>
-
-  
-<button>Submit</button>
-  </form>
-);
-
-}
+ReactDOM.render(routing, document.getElementById('root'));
